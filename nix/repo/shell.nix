@@ -57,10 +57,10 @@ in
           name = "RUST_SRC_PATH";
           value = "${cell.rust.rust-src}/lib/rustlib/src/rust/library";
         }
-        # {
-        #   name = "PKG_CONFIG_PATH";
-        #   value = lib.makeSearchPath "lib/pkgconfig" inputs.cells.app.package.mdbook-paisano-preprocessor.buildInputs;
-        # }
+        {
+          name = "PKG_CONFIG_PATH";
+          value = lib.makeSearchPath "lib/pkgconfig" inputs.cells.app.package.mdbook-paisano-preprocessor.buildInputs;
+        }
       ];
     };
 

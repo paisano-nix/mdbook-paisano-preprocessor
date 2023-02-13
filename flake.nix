@@ -11,7 +11,6 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
   inputs = {
-    # for mdbook-std-reference development
     fenix.url = "github:nix-community/fenix";
     crane.url = "github:ipetkov/crane";
     crane.inputs.nixpkgs.follows = "nixpkgs";
@@ -20,6 +19,7 @@
   outputs = {
     std,
     paisano-actions,
+    self,
     ...
   } @ inputs:
     std.growOn {
@@ -49,5 +49,8 @@
         (devshells "shell")
         (nixago "config")
       ];
+    }
+    {
+      packages = std.harvest self ["app" "package"];
     };
 }
