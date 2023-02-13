@@ -1,0 +1,13 @@
+repository:
+  allow_merge_commit: false
+  allow_rebase_merge: true
+  allow_squash_merge: true
+  default_branch: main
+  delete_branch_on_merge: true
+  description: Yield documentation from Paisano-based projects into MdBook.
+  has_download: false
+  has_projects: false
+  has_wiki: false
+  homepage: https://paisano-nix.github.io/mdbook-paisano-preprocessor
+  name: mdbook-paisano-preprocessor
+  topics: nix, nix-flakes
