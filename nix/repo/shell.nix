@@ -29,12 +29,12 @@ in
             "rustfmt"
           ])
         ++ [
-          {
-            name = "rust-analyzer";
-            category = "rust dev";
-            package = cell.rust.rust-analyzer;
-            help = nixpkgs.rust-analyzer.meta.description;
-          }
+          # {
+          #   name = "rust-analyzer";
+          #   category = "rust dev";
+          #   package = cell.rust.rust-analyzer;
+          #   help = nixpkgs.rust-analyzer.meta.description;
+          # }
         ];
 
       imports = [
@@ -49,7 +49,27 @@ in
         enableDefaultToolchain = false;
       };
 
+      devshell.startup.link-cargo-home = {
+        deps = [];
+        text = ''
+          # ensure CARGO_HOME is populated
+          mkdir -p $PRJ_DATA_DIR/cargo
+          ln -s -t $PRJ_DATA_DIR/cargo $(ls -d ${cell.rust.toolchain}/*)
+        '';
+      };
+
       env = [
+        {
+          # ensure subcommands are picked up from the right place
+          # but also is writable
+          name = "CARGO_HOME";
+          eval = "$PRJ_DATA_DIR/cargo";
+        }
+        {
+          # ensure cargo caches to .std/rustup
+          name = "RUSTUP_HOME";
+          eval = "$PRJ_DATA_DIR/rustup";
+        }
         {
           name = "RUST_SRC_PATH";
           # accessing via toolchain doesn't fail if it's not there
