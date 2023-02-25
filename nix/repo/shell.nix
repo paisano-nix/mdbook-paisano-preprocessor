@@ -17,24 +17,17 @@ in
         nixpkgs.pkg-config
       ];
       commands =
-        (map (name: {
-            inherit name;
-            package = cell.rust.toolchain; # has all bins
-            category = "rust dev";
-            # fenix doesn't include package descriptions, so pull those out of their equivalents in nixpkgs
-            help = nixpkgs.${name}.meta.description;
-          }) [
-            "rustc"
-            "cargo"
-            "rustfmt"
-          ])
-        ++ [
-          # {
-          #   name = "rust-analyzer";
-          #   category = "rust dev";
-          #   package = cell.rust.rust-analyzer;
-          #   help = nixpkgs.rust-analyzer.meta.description;
-          # }
+        map (name: {
+          inherit name;
+          package = cell.rust.toolchain; # has all bins
+          category = "rust dev";
+          # fenix doesn't include package descriptions, so pull those out of their equivalents in nixpkgs
+          help = nixpkgs.${name}.meta.description;
+        }) [
+          "rustc"
+          "cargo"
+          "rustfmt"
+          "rust-analyzer"
         ];
 
       imports = [
