@@ -140,7 +140,7 @@ fn preprocessor(doc: &mut Document) -> Result<&mut Item, ()> {
 	let item = item
 		.as_table_mut()
 		.ok_or(())?
-		.entry("std-reference")
+		.entry("paisano-preprocessor")
 		.or_insert(empty_table);
 	item["command"] = toml_edit::value("mdbook-paisano-preprocessor");
 	Ok(item)

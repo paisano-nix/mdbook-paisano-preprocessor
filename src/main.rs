@@ -1,4 +1,4 @@
-//! An mdbook preprocessor that lets you render Standard Cell Reference Documentation into your book.
+//! An mdbook preprocessor that lets you render Paisano Cell Reference Documentation into your book.
 //!
 //! # Setup
 //!
@@ -14,42 +14,31 @@
 //! src = "src"
 //! title = "example"
 //!
-//! [preprocessor.std-reference]
-//! flakeroot = ./.
-//! placeholder = "Standard Reference"
-//! flakefragment = "__std.docs"
-//!//! ```
-//!
-//! # Usage
-//!
-//! There are two ways to use Kroki in your book. First is a fenced code block:
-//!
-//! ``````markdown
-//! ```kroki-mermaid
-//! graph TD
-//!   A[ Anyone ] -->|Can help | B( Go to github.com/yuzutech/kroki )
-//!   B --> C{ How to contribute? }
-//!   C --> D[ Reporting bugs ]
-//!   C --> E[ Sharing ideas ]
-//!   C --> F[ Advocating ]
-//! ```
-//! ``````
-//!
-//! The code block's language has to be `kroki-<diagram type>`.
-//!
-//! The other method is to use an image tag, for diagrams contents that are too big to put inline
-//! in the markdown (such as for excalidraw):
-//!
-//! ```markdown
-//! ![Excalidraw example](kroki-excalidraw:example.excalidraw)
+//! [preprocessor.paisano-preprocessor]
+//! # The chapter in SUMMARY.md to which
+//! # the render will be appended
+//! chapter = "My Cell Reference"
+//! registry = "..#__std.init"
 //! ```
 //!
-//! The title field can be anything, but the source field needs to start with `kroki-<diagram type>:`.
-//! Both relative and absolute paths are supported. Relative paths are relative to the current markdown
-//! source file, *not* the root of the mdbook.
+//! # Set Up Selected Cells
+//! ```toml
+//! [book]
+//! authors = ["You"]
+//! language = "en"
+//! multilingual = false
+//! src = "src"
+//! title = "example"
 //!
-//! The preprocessor will collect all Kroki diagrams of both types, send requests out in parallel
-//! to the appropriate Kroki API endpoint, and replace their SVG contents back into the markdown.
+//! [preprocessor.paisano-preprocessor]
+//! registry = "..#__std.init"
+//! [[multi]]
+//! chapter = "Foo Cell"
+//! cell = "foo"
+//! [[multi]]
+//! chapter = "Bar Cell"
+//! cell = "bar"
+//! ```
 //!
 //! # Other
 //!

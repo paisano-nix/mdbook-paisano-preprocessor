@@ -132,11 +132,7 @@ impl Preprocessor for StdReference {
 			}
 		}
 		for conf in config.multi.iter() {
-			log::info!(
-				"Chapter '{}' in {}/SUMMARY.md",
-				conf.chapter,
-				root.display(),
-			);
+			log::info!("Chapter '{}' in SUMMARY.md", conf.chapter,);
 
 			log::info!(
 				"Flake URL: '{}'",
