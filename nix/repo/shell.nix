@@ -16,30 +16,26 @@ in
       packages = [
         nixpkgs.pkg-config
       ];
-      commands = let
-        rustCmds =
-          lib.mapAttrs' (name: package: {
+      commands =
+        (map (name: {
             inherit name;
-            value = {
-              inherit package name;
-
-              category = "mdbook-dev";
-              # fenix doesn't include package descriptions, so pull those out of their equivalents in nixpkgs
-              help = nixpkgs.${name}.meta.description;
-            };
-          }) {
-            inherit
-              (cell.rust)
-              cargo
-              clippy # also has: rustc
-              rustfmt
-              rust-analyzer
-              ;
-          };
-      in
-        [
-        ]
-        ++ lib.attrValues rustCmds;
+            package = cell.rust.toolchain; # has all bins
+            category = "rust dev";
+            # fenix doesn't include package descriptions, so pull those out of their equivalents in nixpkgs
+            help = nixpkgs.${name}.meta.description;
+          }) [
+            "rustc"
+            "cargo"
+            "rustfmt"
+          ])
+        ++ [
+          {
+            name = "rust-analyzer";
+            category = "rust dev";
+            package = cell.rust.rust-analyzer;
+            help = nixpkgs.rust-analyzer.meta.description;
+          }
+        ];
 
       imports = [
         #  cell.shell.book
@@ -48,14 +44,18 @@ in
       ];
 
       language.rust = {
-        packageSet = cell.rust.toolchain;
+        packageSet = cell.rust;
+        tools = ["toolchain"]; # fenix collates them all in a convenience derivation
         enableDefaultToolchain = false;
       };
 
       env = [
         {
           name = "RUST_SRC_PATH";
-          value = "${cell.rust.rust-src}/lib/rustlib/src/rust/library";
+          # accessing via toolchain doesn't fail if it's not there
+          # and rust-analyzer is graceful if it's not set correctly:
+          # https://github.com/rust-lang/rust-analyzer/blob/7f1234492e3164f9688027278df7e915bc1d919c/crates/project-model/src/sysroot.rs#L196-L211
+          value = "${cell.rust.toolchain}/lib/rustlib/src/rust/library";
         }
         {
           name = "PKG_CONFIG_PATH";

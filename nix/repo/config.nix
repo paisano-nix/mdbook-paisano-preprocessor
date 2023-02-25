@@ -45,7 +45,7 @@ in {
       nixpkgs.nodePackages.prettier
       nixpkgs.nodePackages.prettier-plugin-toml
       nixpkgs.shfmt
-      cell.rust.rustfmt
+      cell.rust.toolchain
     ];
     devshell.startup.prettier-plugin-toml = lib.stringsWithDeps.noDepEntry ''
       export NODE_PATH=${nixpkgs.nodePackages.prettier-plugin-toml}/lib/node_modules:$NODE_PATH
