@@ -288,16 +288,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1676226775,
-        "narHash": "sha256-MiY0Y9JOo71wu0K9cSxW+N4gOCuS7taI3bSUMFGtbPI=",
-        "owner": "divnix",
-        "repo": "paisano",
-        "rev": "143afa3083274af3be808687ab23fddbbc9d22ed",
+        "lastModified": 1677298389,
+        "narHash": "sha256-gNOsmmr3HiNXFaQ+Rc4USFoKksS+6KKZpCTThnnwW6Q=",
+        "owner": "paisano-nix",
+        "repo": "core",
+        "rev": "687683ae1d9028135a43ed1f9cc3954cf55fc689",
         "type": "github"
       },
       "original": {
-        "owner": "divnix",
-        "repo": "paisano",
+        "owner": "paisano-nix",
+        "repo": "core",
         "type": "github"
       }
     },
@@ -308,16 +308,40 @@
         ]
       },
       "locked": {
-        "lastModified": 1676251833,
-        "narHash": "sha256-W4k61FsRdYEMw7SX0c43h9/HZRNNTPqvqyBV18890/g=",
+        "lastModified": 1677306424,
+        "narHash": "sha256-H9/dI2rGEbKo4KEisqbRPHFG2ajF8Tm111NPdKGIf28=",
         "owner": "paisano-nix",
         "repo": "actions",
-        "rev": "328286c14b6dfe0124ef044e87b1a78d30aa7ef5",
+        "rev": "65ec4e080b3480167fc1a748c89a05901eea9a9b",
         "type": "github"
       },
       "original": {
         "owner": "paisano-nix",
         "repo": "actions",
+        "type": "github"
+      }
+    },
+    "paisano-tui": {
+      "inputs": {
+        "nixpkgs": [
+          "std",
+          "blank"
+        ],
+        "std": [
+          "std"
+        ]
+      },
+      "locked": {
+        "lastModified": 1677306024,
+        "narHash": "sha256-zMiBGCFZtefvlnmXNyG9+ofYLj/xNpKfXEJJHwOGbpE=",
+        "owner": "paisano-nix",
+        "repo": "tui",
+        "rev": "0fe88586963807b918cab3e4a6a651604b0a82c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "paisano-nix",
+        "repo": "tui",
         "type": "github"
       }
     },
@@ -397,14 +421,15 @@
           "nixpkgs"
         ],
         "paisano": "paisano",
+        "paisano-tui": "paisano-tui",
         "yants": "yants"
       },
       "locked": {
-        "lastModified": 1676232625,
-        "narHash": "sha256-M9xLaFVhD58UwGKoodAzeZD1iBdrCTtAsqKwWX5mUXA=",
+        "lastModified": 1677306098,
+        "narHash": "sha256-x2ISngt0sI8mFhNVnu0TKfGgd6cztMx0w0uyYIifUlc=",
         "owner": "divnix",
         "repo": "std",
-        "rev": "b462198baa6b3a3c6f3f46662500f683e105a2fa",
+        "rev": "074e3a9fcf28e91ac0a89c75863a654a5cfcb76b",
         "type": "github"
       },
       "original": {
@@ -421,11 +446,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1667096281,
-        "narHash": "sha256-wRRec6ze0gJHmGn6m57/zhz/Kdvp9HS4Nl5fkQ+uIuA=",
+        "lastModified": 1677285314,
+        "narHash": "sha256-hlAcg2514zKrPu8jn24BUsIjjvXvCLdw1jvKgBTpqko=",
         "owner": "divnix",
         "repo": "yants",
-        "rev": "d18f356ec25cb94dc9c275870c3a7927a10f8c3c",
+        "rev": "9eab24b273ce021406c852166c216b86e2bb4ec4",
         "type": "github"
       },
       "original": {

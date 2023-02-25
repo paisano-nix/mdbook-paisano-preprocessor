@@ -30,12 +30,12 @@
           name = "package";
           type = "binary";
           actions = {
-            system,
+            currentSystem,
             fragment,
             fragmentRelPath,
             target,
           }: [
-            (paisano-actions.build system target)
+            (paisano-actions.build currentSystem target)
           ];
         }
 
