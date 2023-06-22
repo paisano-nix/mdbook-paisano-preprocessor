@@ -4,8 +4,6 @@
   inputs = {
     std.url = "github:divnix/std";
     std.inputs.nixpkgs.follows = "nixpkgs";
-    paisano-actions.url = "github:paisano-nix/actions";
-    paisano-actions.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -18,7 +16,6 @@
 
   outputs = {
     std,
-    paisano-actions,
     self,
     ...
   } @ inputs:
@@ -34,8 +31,9 @@
             fragment,
             fragmentRelPath,
             target,
+            inputs,
           }: [
-            (paisano-actions.build currentSystem target)
+            (std.actions.build currentSystem target)
           ];
         }
 

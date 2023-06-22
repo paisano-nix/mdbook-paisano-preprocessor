@@ -301,26 +301,6 @@
         "type": "github"
       }
     },
-    "paisano-actions": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1677306424,
-        "narHash": "sha256-H9/dI2rGEbKo4KEisqbRPHFG2ajF8Tm111NPdKGIf28=",
-        "owner": "paisano-nix",
-        "repo": "actions",
-        "rev": "65ec4e080b3480167fc1a748c89a05901eea9a9b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "paisano-nix",
-        "repo": "actions",
-        "type": "github"
-      }
-    },
     "paisano-tui": {
       "inputs": {
         "nixpkgs": [
@@ -350,7 +330,6 @@
         "crane": "crane",
         "fenix": "fenix",
         "nixpkgs": "nixpkgs_2",
-        "paisano-actions": "paisano-actions",
         "std": "std"
       }
     },
