@@ -48,7 +48,7 @@ in {
       cell.rust.toolchain
     ];
     devshell.startup.prettier-plugin-toml = lib.stringsWithDeps.noDepEntry ''
-      export NODE_PATH=${nixpkgs.nodePackages.prettier-plugin-toml}/lib/node_modules:$NODE_PATH
+      export NODE_PATH=${nixpkgs.nodePackages.prettier-plugin-toml}/lib/node_modules:''${NODE_PATH:-}
     '';
   };
   editorconfig = {

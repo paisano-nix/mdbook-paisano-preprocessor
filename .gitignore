@@ -1,4 +1,4 @@
-.std
+.data
 target
 result
 
@@ -6,7 +6,7 @@ result
 docs/book/**
 
 # nixago: ignore-linked-files
-adrgen.config.yml
-lefthook.yml
-.conform.yaml
-treefmt.toml
+/adrgen.config.yml
+/lefthook.yml
+/.conform.yaml
+/treefmt.toml

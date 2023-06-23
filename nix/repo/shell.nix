@@ -6,12 +6,16 @@ in
     default = {
       name = "Paisano MdBook";
       nixago = [
-        (std.lib.cfg.conform {data = {inherit (inputs) cells;};})
-        (std.lib.cfg.treefmt cell.config.treefmt)
-        (std.lib.cfg.editorconfig cell.config.editorconfig)
-        (std.lib.cfg.githubsettings cell.config.githubsettings)
-        std.lib.cfg.lefthook
-        std.lib.cfg.adrgen
+        ((std.lib.dev.mkNixago std.lib.cfg.conform)
+          {data = {inherit (inputs) cells;};})
+        ((std.lib.dev.mkNixago std.lib.cfg.treefmt)
+          cell.config.treefmt)
+        ((std.lib.dev.mkNixago std.lib.cfg.editorconfig)
+          cell.config.editorconfig)
+        ((std.lib.dev.mkNixago std.lib.cfg.githubsettings)
+          cell.config.githubsettings)
+        (std.lib.dev.mkNixago std.lib.cfg.lefthook)
+        (std.lib.dev.mkNixago std.lib.cfg.adrgen)
       ];
       packages = [
         nixpkgs.pkg-config
@@ -47,7 +51,7 @@ in
         text = ''
           # ensure CARGO_HOME is populated
           mkdir -p $PRJ_DATA_DIR/cargo
-          ln -s -t $PRJ_DATA_DIR/cargo $(ls -d ${cell.rust.toolchain}/*)
+          ln -f -s -t $PRJ_DATA_DIR/cargo $(ls -d ${cell.rust.toolchain}/*)
         '';
       };
 
@@ -79,7 +83,7 @@ in
 
     book = {
       nixago = [
-        (std.lib.cfg.mdbook cell.config.mdbook)
+        ((std.lib.dev.mkNixago std.lib.cfg.mdbook) cell.config.mdbook)
       ];
     };
   }

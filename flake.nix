@@ -4,6 +4,13 @@
   inputs = {
     std.url = "github:divnix/std";
     std.inputs.nixpkgs.follows = "nixpkgs";
+    std.inputs.devshell.follows = "devshell";
+    std.inputs.nixago.follows = "nixago";
+    devshell.url = "github:numtide/devshell";
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
+    nixago.url = "github:nix-community/nixago";
+    nixago.inputs.nixpkgs.follows = "nixpkgs";
+    nixago.inputs.nixago-exts.follows = "";
   };
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
