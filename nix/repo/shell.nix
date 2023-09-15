@@ -1,21 +1,19 @@
 let
-  lib = nixpkgs.lib // builtins;
-  inherit (inputs) nixpkgs std;
+  inherit (inputs) nixpkgs devshell;
+  inherit (inputs.std.lib.dev) mkShell;
+  inherit (inputs.nixpkgs.lib) mapAttrs makeSearchPath;
+  inherit (inputs.cells.app.package) mdbook-paisano-preprocessor;
 in
-  lib.mapAttrs (_: std.lib.dev.mkShell) rec {
+  mapAttrs (_: mkShell) rec {
     default = {
       name = "Paisano MdBook";
       nixago = [
-        ((std.lib.dev.mkNixago std.lib.cfg.conform)
-          {data = {inherit (inputs) cells;};})
-        ((std.lib.dev.mkNixago std.lib.cfg.treefmt)
-          cell.config.treefmt)
-        ((std.lib.dev.mkNixago std.lib.cfg.editorconfig)
-          cell.config.editorconfig)
-        ((std.lib.dev.mkNixago std.lib.cfg.githubsettings)
-          cell.config.githubsettings)
-        (std.lib.dev.mkNixago std.lib.cfg.lefthook)
-        (std.lib.dev.mkNixago std.lib.cfg.adrgen)
+        cell.config.conform
+        cell.config.treefmt
+        cell.config.editorconfig
+        cell.config.githubsettings
+        cell.config.lefthook
+        cell.config.cog
       ];
       packages = [
         nixpkgs.pkg-config
@@ -34,11 +32,7 @@ in
           "rust-analyzer"
         ];
 
-      imports = [
-        #  cell.shell.book
-        book
-        "${std.inputs.devshell}/extra/language/rust.nix"
-      ];
+      imports = [book "${devshell}/extra/language/rust.nix"];
 
       language.rust = {
         packageSet = cell.rust;
@@ -76,14 +70,10 @@ in
         }
         {
           name = "PKG_CONFIG_PATH";
-          value = lib.makeSearchPath "lib/pkgconfig" inputs.cells.app.package.mdbook-paisano-preprocessor.buildInputs;
+          value = makeSearchPath "lib/pkgconfig" mdbook-paisano-preprocessor.buildInputs;
         }
       ];
     };
 
-    book = {
-      nixago = [
-        ((std.lib.dev.mkNixago std.lib.cfg.mdbook) cell.config.mdbook)
-      ];
-    };
+    book.nixago = [cell.config.mdbook];
   }

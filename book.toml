@@ -1,0 +1,12 @@
+[book]
+language = "en"
+multilingual = false
+src = "docs"
+title = "Paisano MdBook Preprocessor"
+
+[build]
+build-dir = "docs/book"
+
+[preprocessor.paisano-preprocessor]
+before = ["links"]
+registry = ".#__std.init"

@@ -1,113 +1,42 @@
 let
   inherit (inputs) nixpkgs;
-  lib = nixpkgs.lib // builtins;
+  inherit (inputs.std.data) configs;
+  inherit (inputs.std.lib.dev) mkNixago;
 in {
-  treefmt = {
-    data = {
-      formatter = {
-        nix = {
-          command = "alejandra";
-          includes = ["*.nix"];
-        };
-        prettier = {
-          command = "prettier";
-          options = ["--plugin" "prettier-plugin-toml" "--write"];
-          includes = [
-            "*.css"
-            "*.html"
-            "*.js"
-            "*.json"
-            "*.jsx"
-            "*.md"
-            "*.mdx"
-            "*.scss"
-            "*.ts"
-            "*.yaml"
-            "*.toml"
-          ];
-        };
-        shell = {
-          command = "shfmt";
-          options = ["-i" "2" "-s" "-w"];
-          includes = ["*.sh"];
-        };
-        prettier = {
-          excludes = ["**.min.js"];
-        };
-        rust = {
-          command = "rustfmt";
-          includes = ["*.rs"];
-        };
+  treefmt = (mkNixago configs.treefmt) {
+    data.formatter = {
+      rust = {
+        command = "rustfmt";
+        includes = ["*.rs"];
       };
     };
     packages = [
-      nixpkgs.alejandra
-      nixpkgs.nodePackages.prettier
-      nixpkgs.nodePackages.prettier-plugin-toml
-      nixpkgs.shfmt
       cell.rust.toolchain
     ];
-    devshell.startup.prettier-plugin-toml = lib.stringsWithDeps.noDepEntry ''
-      export NODE_PATH=${nixpkgs.nodePackages.prettier-plugin-toml}/lib/node_modules:''${NODE_PATH:-}
-    '';
   };
-  editorconfig = {
-    hook.mode = "copy"; # already useful before entering the devshell
-    data = {
-      root = true;
+  editorconfig = (mkNixago configs.editorconfig) {};
+  conform = (mkNixago configs.conform) {};
+  lefthook = (mkNixago configs.lefthook) {};
 
-      "*" = {
-        end_of_line = "lf";
-        insert_final_newline = true;
-        trim_trailing_whitespace = true;
-        charset = "utf-8";
-        indent_style = "space";
-        indent_size = 2;
-      };
+  mdbook = (mkNixago configs.mdbook) {
+    data.book.title = "Paisano MdBook Preprocessor";
+  };
 
-      "*.{diff,patch}" = {
-        end_of_line = "unset";
-        insert_final_newline = "unset";
-        trim_trailing_whitespace = "unset";
-        indent_size = "unset";
-      };
-
-      "*.md" = {
-        max_line_length = "off";
-        trim_trailing_whitespace = false;
-      };
-      "{LICENSES/**,LICENSE}" = {
-        end_of_line = "unset";
-        insert_final_newline = "unset";
-        trim_trailing_whitespace = "unset";
-        charset = "unset";
-        indent_style = "unset";
-        indent_size = "unset";
-      };
+  cog = (mkNixago configs.cog) {
+    data.changelog = {
+      remote = "github.com";
+      repository = "paisano-nix";
+      owner = "mdbook-paisano-preprocessor";
     };
   };
-  mdbook = {
-    output = "docs/book.toml";
-    data = {
-      book = {
-        language = "en";
-        multilingual = false;
-        title = "Paisano MdBook Preprocessor";
-        src = ".";
-      };
-      build = {
-        build-dir = "book";
-      };
-    };
-    hook.mode = "copy"; # let CI pick it up outside of devshell
-  };
-  githubsettings = {
+
+  githubsettings = (mkNixago configs.githubsettings) {
     data = {
       repository = {
         name = "mdbook-paisano-preprocessor";
         inherit (import (inputs.self + /flake.nix)) description;
         homepage = "https://paisano-nix.github.io/mdbook-paisano-preprocessor";
-        topics = "nix, nix-flakes";
+        topics = "nix, std, hive";
         default_branch = "main";
         allow_squash_merge = true;
         allow_merge_commit = false;
@@ -117,6 +46,13 @@ in {
         has_wiki = false;
         has_download = false;
       };
+      milestones = [
+        {
+          title = "Documentation";
+          description = ":dart:";
+          state = "open";
+        }
+      ];
     };
   };
 }

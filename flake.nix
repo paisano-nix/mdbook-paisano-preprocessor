@@ -30,20 +30,7 @@
       inherit inputs;
       cellsFrom = ./nix;
       cellBlocks = with std.blockTypes; [
-        {
-          name = "package";
-          type = "binary";
-          actions = {
-            currentSystem,
-            fragment,
-            fragmentRelPath,
-            target,
-            inputs,
-          }: [
-            (std.actions.build currentSystem target)
-          ];
-        }
-
+        (installables "package")
         {
           name = "rust";
           type = "binary";
